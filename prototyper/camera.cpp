@@ -24,6 +24,10 @@ Camera::Camera()
     projection = glm::perspective(45.0f, 1.6f/1.0f, 0.1f, 100000.0f);
 }
 
+void Camera::updateProjection (int width, int height)
+{
+    projection = glm::perspective(45.0f, (float)width/(float)height, 0.1f, 100000.0f);
+}
 void Camera::updatePos(KeyState *keypress, float deltaT)
 {
     //  initialize positional differential
@@ -100,7 +104,4 @@ void Camera::setAngle(float dx, float dy)
 //{
 //    shader.setMat4("view", view);
 //}
-void Camera::updateProjection (int width, int height)
-{
-    projection = glm::perspective(45.0f, (float)width/(float)height, 0.1f, 100000.0f);
-}
+

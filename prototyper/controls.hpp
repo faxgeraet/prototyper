@@ -17,11 +17,6 @@ struct Cursor {
     double prevY;
 };
 
-struct Time {
-    float now;
-    float last;
-    float delta;
-};
 
 class KeyState {
 public:

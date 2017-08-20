@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <vector>
 #include <iostream>
+#include <map>
 
 #include <glbinding/gl/gl.h>
 #include <glbinding/Binding.h>
@@ -50,7 +51,7 @@ struct Texture
 {
     unsigned int ID;
     std::string type;
-    aiString path;
+//    aiString path;
 };
 
 

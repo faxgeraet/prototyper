@@ -12,30 +12,46 @@
 #include <stdio.h>
 #include <vector>
 #include <iostream>
+#include <map>
 
+#include <tiny_obj_loader.h>
 
 
 #include "mesh.hpp"
 
+struct Vaostrct {
+    unsigned int ID;
+    unsigned int nrVertices;
+};
+
 class Model {
 public:
     std::vector<Mesh> meshes;
-    std::vector<Texture> textures_loaded;
+    std::map<std::string, GLuint> textures;
     std::string directory;
-    bool gammaCorrection;
     glm::mat4 model;
     
-    Model (std::string const &path, bool gamma);
+    Model (std::string const &path);
     void draw(Shader shader);
+
+    std::vector<Vaostrct> VAOs;
+    
+    
 private:
     /*  functions  */
-    //  loads a model with help from assimp
+    
+    //  loads complete model
     void loadModel (std::string const &path);
-    void processNode (aiNode *node, const aiScene *scene);
-    Mesh processMesh (aiMesh *mesh, const aiScene *scene);
-    std::vector<Texture> loadMaterialTextures (aiMaterial *material, aiTextureType type, std::string typeName);
+    
+    /*  helper functions  */
+    void loadMaterialTexture (int texArg, std::vector<tinyobj::material_t>* materials);
+    void loadShapes(tinyobj::attrib_t *attrib, std::vector<tinyobj::shape_t> *shapes);
+    void loadVertices (tinyobj::attrib_t *attrib);
+    
+    /*  some variables */
+    std::vector<unsigned int> EBOs;
+    unsigned int VBO;
+    unsigned int numVertices, numNormals, numTexcoord;
 };
-
-unsigned int TextureFromFile (const char *path, const std::string &directory, bool gamma);
 
 #endif /* model_hpp */

@@ -26,9 +26,13 @@
 //#include <map>
 //#include <math.h>
 
-#include "viewer.hpp"
-#include "model.hpp"
+
+//#include "viewer.hpp"
+
+#include "timer.hpp"
 #include "camera.hpp"
+#include "model.hpp"
+
 
 using namespace gl;
 
@@ -47,7 +51,7 @@ unsigned int DISPLAY_WIDTH, DISPLAY_HEIGHT;
 KeyState keypress;
 Camera camera;
 Cursor cursor;
-Time timer;
+Timer timer;
 
 int main(int argc, const char * argv[]) {
     
@@ -104,31 +108,18 @@ int main(int argc, const char * argv[]) {
 //    glEnable(GL_BLEND);
 //    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     
-    /*  load model  */
-    
-    Model model1 = Model(argv[1], false);
-    
     /*  initiate timer  */
     
-    timer.now=glfwGetTime();
+    timer.update();
     
-    //  floor mesh
+    /*  load model  */
     
-//    std::vector<Vertex> vertices;
-//    vertices.resize(4);
-//    vertices[0].coord = glm::vec3(-1000000, -0.55, -1000000);
-//    vertices[1].coord = glm::vec3( 100000, -0.55,  -1000000);
-//    vertices[2].coord = glm::vec3(-1000000, -0.55,  1000000);
-//    vertices[3].coord = glm::vec3( 100000, -0.55,   1000000);
-//    vertices[0].normal = glm::vec3(0, 1, 0);
-//    vertices[1].normal = glm::vec3(0, 1, 0);
-//    vertices[2].normal = glm::vec3(0, 1, 0);
-//    vertices[3].normal = glm::vec3(0, 1, 0);
-//    std::vector<unsigned int> indices = {2, 1, 3, 0, 2, 3};
-//    std::vector<Texture> textures;
+    Model model1 = Model(argv[1]);
     
-//    Mesh floor = Mesh(vertices, indices, textures);
+    timer.update();
     
+    std::cout << "Loading time: " << timer.delta << " seconds" << std::endl;
+
     
     /*  main loop  */
     
@@ -153,7 +144,6 @@ int main(int argc, const char * argv[]) {
         shader.setMat4("view", camera.view);
         shader.setMat4("projection", camera.projection);
         model1.draw(shader);
-//        floor.draw(shader);
         
         glfwSwapBuffers(window);
         glfwPollEvents();

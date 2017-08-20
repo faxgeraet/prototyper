@@ -14,6 +14,7 @@
 		D59732BD1F476D5900137847 /* shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D59732BB1F476D5900137847 /* shader.cpp */; };
 		D59732C01F476D8800137847 /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D59732BE1F476D8800137847 /* camera.cpp */; };
 		D59732C41F476DB100137847 /* controls.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D59732C21F476DB100137847 /* controls.cpp */; };
+		D5D3052C1F499ECF00862EAB /* timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5D3052A1F499ECF00862EAB /* timer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -48,6 +49,9 @@
 		D59732C31F476DB100137847 /* controls.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = controls.hpp; sourceTree = "<group>"; };
 		D5D131181F489E78004752A4 /* vShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = vShader.glsl; path = shaders/vShader.glsl; sourceTree = "<group>"; };
 		D5D131191F489E87004752A4 /* fShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fShader.glsl; path = shaders/fShader.glsl; sourceTree = "<group>"; };
+		D5D305291F4995C700862EAB /* tiny_obj_loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tiny_obj_loader.h; sourceTree = "<group>"; };
+		D5D3052A1F499ECF00862EAB /* timer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = timer.cpp; sourceTree = "<group>"; };
+		D5D3052B1F499ECF00862EAB /* timer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = timer.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +68,7 @@
 		D53177451F47B1BC003954B5 /* headers */ = {
 			isa = PBXGroup;
 			children = (
+				D5D3052B1F499ECF00862EAB /* timer.hpp */,
 				D59732BF1F476D8800137847 /* camera.hpp */,
 				D59732C31F476DB100137847 /* controls.hpp */,
 				D59732B91F476D4600137847 /* mesh.hpp */,
@@ -78,6 +83,7 @@
 		D531774E1F47BB5C003954B5 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				D5D305291F4995C700862EAB /* tiny_obj_loader.h */,
 				D531774F1F47BB5C003954B5 /* glad */,
 				D53177511F47BB5C003954B5 /* KHR */,
 				D53177531F47BB5C003954B5 /* stb_image.h */,
@@ -131,6 +137,7 @@
 				D59732B51F476D3200137847 /* model.cpp */,
 				D59732BB1F476D5900137847 /* shader.cpp */,
 				D531773E1F47AAF5003954B5 /* viewer.cpp */,
+				D5D3052A1F499ECF00862EAB /* timer.cpp */,
 			);
 			name = source;
 			path = prototyper;
@@ -217,6 +224,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5D3052C1F499ECF00862EAB /* timer.cpp in Sources */,
 				D59732AF1F476D1800137847 /* main.cpp in Sources */,
 				D59732B71F476D3200137847 /* model.cpp in Sources */,
 				D59732BD1F476D5900137847 /* shader.cpp in Sources */,
