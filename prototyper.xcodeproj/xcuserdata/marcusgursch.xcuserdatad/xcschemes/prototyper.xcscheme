@@ -63,7 +63,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "/Users/marcusgursch/Downloads/rungholt/rungholt.obj"
+            argument = "/Users/marcusgursch/Downloads/lpshead/head.OBJ"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

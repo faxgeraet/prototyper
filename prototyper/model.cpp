@@ -7,6 +7,7 @@
 //
 
 #include "model.hpp"
+
 #include <iostream>
 
 #define TINYOBJLOADER_IMPLEMENTATION
@@ -29,7 +30,7 @@ Model::Model (std::string const &path)
 void Model::loadModel (std::string const &path)
 {
     //  create buffers for tinyobjloader to fill
-    
+
     tinyobj::attrib_t attrib;
     std::vector<tinyobj::shape_t> shapes;
     std::vector<tinyobj::material_t> materials;
@@ -37,10 +38,9 @@ void Model::loadModel (std::string const &path)
     
     
     //  fill those buffers with triangulated data
+    
     bool ret = tinyobj::LoadObj(&attrib, &shapes, &materials, &err, path.c_str(), directory.c_str(), true);
     
-
-//
     //  check for errors
 
     if(!ret)
@@ -61,13 +61,13 @@ void Model::loadModel (std::string const &path)
     materials.push_back(tinyobj::material_t());
     
     // load textures into openGL and store their ids and name in class
+    
     loadMaterialTexture(1, &materials); // diffuse maps
     loadMaterialTexture(2, &materials); // specular maps
     loadMaterialTexture(3, &materials); // normal maps
     loadMaterialTexture(4, &materials); // bump maps
     
     //  load shapes into openGL
-    
     
     loadShapes(&attrib, &shapes);
     
@@ -175,137 +175,87 @@ void Model::loadMaterialTexture (int texArg, std::vector<tinyobj::material_t>* m
     }
 }
 
-void Model::loadVertices(tinyobj::attrib_t *attrib)
-{
-    numVertices = (*attrib).vertices.size();
-    numNormals = (*attrib).normals.size();
-    numTexcoord = (*attrib).texcoords.size();
-    
-    //    numVN = numVertices - numNormals;
-    //    numVT = numVertices - numTexcoord;
-    std::vector<float> temporary;
-    
-    //  write vertex data in sequential order since not every vertex corresponds to a normal or texcoord
-    
-    for (unsigned int i = 0; i < numVertices; i++)
-    {
-        temporary.push_back((*attrib).vertices[i]);
-    }
-    //    for (unsigned int i = 0; i < numNormals; i++)
-    //    {
-    //        temporary.push_back((*attrib).normals[i]);
-    //    }
-    ////    for (unsigned int i = 0; i < numVertices - numNormals; i++)
-    ////    {
-    ////        temporary.push_back(0);
-    ////    }
-    //    for (unsigned int i = 0; i < numTexcoord; i++)
-    //    {
-    //        temporary.push_back((*attrib).texcoords[i]);
-    //    }
-    ////    for (unsigned int i = 0; i < numVertices - numTexcoord; i++)
-    ////    {
-    ////        temporary.push_back(0);
-    ////    }
-    
-    // load that stuff into openGL
-    
-    glGenBuffers(1, &VBO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * temporary.size(), &temporary[0], GL_STATIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-}
 
 void Model::loadShapes(tinyobj::attrib_t *attrib, std::vector<tinyobj::shape_t> *shapes)
 {
-    // first load vertices, then indices
+    //  initialize vertex vector with vertex coordinates
     
-    loadVertices(attrib);
+    for (unsigned int i = 0; i < attrib->vertices.size();)
+    {
+        Vertex vertex;
+        vertex.coords[0] = attrib->vertices[i++];
+        vertex.coords[1] = attrib->vertices[i++];
+        vertex.coords[2] = attrib->vertices[i++];
+        vertices.push_back(vertex);
+    }
+    
+    //  load indices and add cooresponding normals and texcoords into the vertex vector
     
     for ( unsigned int i = 0; i < (*shapes).size(); i++)
     {
-        std::vector<unsigned int> temporary;
 
-        for (unsigned int j = 0; j < (*shapes)[i].mesh.indices.size(); j++)
-        {
-            //  vertex coordinate indices
-            
-            unsigned int curr_index =  (*shapes)[i].mesh.indices[j].vertex_index;
-            temporary.push_back(curr_index);
-            
-            
-//            temporary.push_back(curr_index+1);
-//            temporary.push_back(curr_index+2);
-//
-//            //  normal vector indices
-//
-//            if ( (*shapes)[i].mesh.indices[j].normal_index != -1)
-//            {
-//                curr_index = numVertices + 3 * (*shapes)[i].mesh.indices[j].normal_index;
-//                temporary.push_back(curr_index);
-//                temporary.push_back(curr_index+1);
-//                temporary.push_back(curr_index+2);
-//            }
-//            else
-//            {
-//                temporary.push_back(-1);
-//                temporary.push_back(-1);
-//                temporary.push_back(-1);
-//            }
-//            
-//            //  texcoord indices
-//            if ( (*shapes)[i].mesh.indices[j].texcoord_index != -1)
-//            {
-//                curr_index = numVertices + numNormals + 3 * (*shapes)[i].mesh.indices[j].texcoord_index;
-//                temporary.push_back(curr_index);
-//                temporary.push_back(curr_index+1);
-//            }
-//            else
-//            {
-//                temporary.push_back(-1);
-//                temporary.push_back(-1);
-//            }
-            
-        
-        }
-        
         Vaostrct VAO;
         VAO.nrVertices = (*shapes)[i].mesh.indices.size();
+        std::vector<unsigned int> vIndices;
         unsigned int EBO;
         
+        //  vertex coordinate indices
+        for (unsigned int j = 0; j < VAO.nrVertices; j++)
+        {
+            int coord_index =  (*shapes)[i].mesh.indices[j].vertex_index;
+            int normal_index = (*shapes)[i].mesh.indices[j].normal_index;
+            int texc_index = (*shapes)[i].mesh.indices[j].texcoord_index;
+            
+            //  add normals to vertex vector
+            if(normal_index>=0)
+            {
+                vertices[coord_index].normals[0] = attrib->normals[normal_index];
+                vertices[coord_index].normals[1] = attrib->normals[normal_index+1];
+                vertices[coord_index].normals[2] = attrib->normals[normal_index+2];
+            }
+            
+            //  add texcoords
+            if(texc_index>=0)
+            {
+                vertices[coord_index].texCoords[0] = attrib->texcoords[texc_index];
+                vertices[coord_index].texCoords[1] = attrib->texcoords[texc_index+1];
+            }
+            vIndices.push_back(coord_index);
+        }
+
+        //  pass data to openGL and create a VAO for each shape
+    
         glGenVertexArrays(1, &VAO.ID);
         glBindVertexArray(VAO.ID);
+        
+        glGenBuffers(1, &VBO);
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex)*vertices.size(), &vertices[0], GL_STATIC_DRAW);
         
         glGenBuffers(1, &EBO);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int)*temporary.size(), &temporary[0], GL_STATIC_DRAW);
-        
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int)*vIndices.size(), &vIndices[0], GL_STATIC_DRAW);
+
         //  set attrib pointers
         
         //  coordinates
         glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), (void*)0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
         
-        //    //  normals
-        //    glEnableVertexAttribArray(1);
-        //    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), (void*)(numVertices * sizeof(float)));
-        //
-        //    //  texCoords
-        //    glEnableVertexAttribArray(2);
-        //    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 2*sizeof(float), (void*)( (2*numVertices) * sizeof(float)));
+        //  normals
+        glEnableVertexAttribArray(1);
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normals));
+        
+        //  texCoords
+        glEnableVertexAttribArray(2);
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, texCoords));
         
         glBindVertexArray(0);
         
         VAOs.push_back(VAO);
         EBOs.push_back(EBO);
-
     }
-
-    
-    
-    
-//
+    vertices.clear();
 }
 
 void Model::draw(Shader shader)

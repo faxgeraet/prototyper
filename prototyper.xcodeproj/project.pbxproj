@@ -10,7 +10,6 @@
 		D53177401F47AAF5003954B5 /* viewer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D531773E1F47AAF5003954B5 /* viewer.cpp */; };
 		D59732AF1F476D1800137847 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D59732AE1F476D1800137847 /* main.cpp */; };
 		D59732B71F476D3200137847 /* model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D59732B51F476D3200137847 /* model.cpp */; };
-		D59732BA1F476D4600137847 /* mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D59732B81F476D4600137847 /* mesh.cpp */; };
 		D59732BD1F476D5900137847 /* shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D59732BB1F476D5900137847 /* shader.cpp */; };
 		D59732C01F476D8800137847 /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D59732BE1F476D8800137847 /* camera.cpp */; };
 		D59732C41F476DB100137847 /* controls.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D59732C21F476DB100137847 /* controls.cpp */; };
@@ -32,15 +31,12 @@
 /* Begin PBXFileReference section */
 		D531773E1F47AAF5003954B5 /* viewer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = viewer.cpp; sourceTree = "<group>"; };
 		D531773F1F47AAF5003954B5 /* viewer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = viewer.hpp; sourceTree = "<group>"; };
-		D53177501F47BB5C003954B5 /* glad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = glad.h; sourceTree = "<group>"; };
 		D53177521F47BB5C003954B5 /* khrplatform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = khrplatform.h; sourceTree = "<group>"; };
 		D53177531F47BB5C003954B5 /* stb_image.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
 		D59732AB1F476D1800137847 /* prototyper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = prototyper; sourceTree = BUILT_PRODUCTS_DIR; };
 		D59732AE1F476D1800137847 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		D59732B51F476D3200137847 /* model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = model.cpp; sourceTree = "<group>"; };
 		D59732B61F476D3200137847 /* model.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = model.hpp; sourceTree = "<group>"; };
-		D59732B81F476D4600137847 /* mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mesh.cpp; sourceTree = "<group>"; };
-		D59732B91F476D4600137847 /* mesh.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mesh.hpp; sourceTree = "<group>"; };
 		D59732BB1F476D5900137847 /* shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shader.cpp; sourceTree = "<group>"; };
 		D59732BC1F476D5900137847 /* shader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = shader.hpp; sourceTree = "<group>"; };
 		D59732BE1F476D8800137847 /* camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = camera.cpp; sourceTree = "<group>"; };
@@ -71,7 +67,6 @@
 				D5D3052B1F499ECF00862EAB /* timer.hpp */,
 				D59732BF1F476D8800137847 /* camera.hpp */,
 				D59732C31F476DB100137847 /* controls.hpp */,
-				D59732B91F476D4600137847 /* mesh.hpp */,
 				D59732B61F476D3200137847 /* model.hpp */,
 				D59732BC1F476D5900137847 /* shader.hpp */,
 				D531773F1F47AAF5003954B5 /* viewer.hpp */,
@@ -84,19 +79,10 @@
 			isa = PBXGroup;
 			children = (
 				D5D305291F4995C700862EAB /* tiny_obj_loader.h */,
-				D531774F1F47BB5C003954B5 /* glad */,
 				D53177511F47BB5C003954B5 /* KHR */,
 				D53177531F47BB5C003954B5 /* stb_image.h */,
 			);
 			path = include;
-			sourceTree = "<group>";
-		};
-		D531774F1F47BB5C003954B5 /* glad */ = {
-			isa = PBXGroup;
-			children = (
-				D53177501F47BB5C003954B5 /* glad.h */,
-			);
-			path = glad;
 			sourceTree = "<group>";
 		};
 		D53177511F47BB5C003954B5 /* KHR */ = {
@@ -133,7 +119,6 @@
 				D59732AE1F476D1800137847 /* main.cpp */,
 				D59732BE1F476D8800137847 /* camera.cpp */,
 				D59732C21F476DB100137847 /* controls.cpp */,
-				D59732B81F476D4600137847 /* mesh.cpp */,
 				D59732B51F476D3200137847 /* model.cpp */,
 				D59732BB1F476D5900137847 /* shader.cpp */,
 				D531773E1F47AAF5003954B5 /* viewer.cpp */,
@@ -228,7 +213,6 @@
 				D59732AF1F476D1800137847 /* main.cpp in Sources */,
 				D59732B71F476D3200137847 /* model.cpp in Sources */,
 				D59732BD1F476D5900137847 /* shader.cpp in Sources */,
-				D59732BA1F476D4600137847 /* mesh.cpp in Sources */,
 				D59732C01F476D8800137847 /* camera.cpp in Sources */,
 				D53177401F47AAF5003954B5 /* viewer.cpp in Sources */,
 				D59732C41F476DB100137847 /* controls.cpp in Sources */,
