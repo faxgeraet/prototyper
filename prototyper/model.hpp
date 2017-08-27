@@ -23,44 +23,50 @@
 
 using namespace gl;
 
-struct Vaostrct {
-    unsigned int ID;
-    unsigned int nrVertices;
+struct Vertex {
+    glm::vec3 coordinates = glm::vec3 (0,0,0);
+    glm::vec3 normal = glm::vec3 (0,0,0);
+    glm::vec2 texcoord = glm::vec2 (0,0);
 };
 
-struct Vertex {
-    float coords[3]={0,0,0};
-    float normals[3]={0,0,0};
-    float texCoords[2]={0,0};
+struct Texture {
+    std::string name;
+    unsigned int id;
+};
+
+struct Material {
+    std::string name;
+    Texture diff_texture;
+    bool alpha = false;
+};
+
+struct Shape {
+    unsigned int VAO;
+    int matID;
+    unsigned int numVertices;
 };
 
 class Model {
 public:
-    std::vector<Vertex> vertices;
     std::map<std::string, GLuint> textures;
+    std::map<std::string, bool> textureMode;
     std::string directory;
     glm::mat4 model;
+    std::vector<Shape> shape;
     
     Model (std::string const &path);
     void draw(Shader shader);
-
-    std::vector<Vaostrct> VAOs;
-    
-    
+        
 private:
-    /*  functions  */
-    
-    //  loads complete model
-    void loadModel (std::string const &path);
-    
+
     /*  helper functions  */
+    void loadModel (std::string const &path);
     void loadMaterialTexture (int texArg, std::vector<tinyobj::material_t>* materials);
-    void loadShapes(tinyobj::attrib_t *attrib, std::vector<tinyobj::shape_t> *shapes);
     
     /*  some variables */
-    std::vector<unsigned int> EBOs;
-    unsigned int VBO;
-    unsigned int numVertices, numNormals, numTexcoord;
+
+
+    std::vector <Material> material;
 };
 
 #endif /* model_hpp */

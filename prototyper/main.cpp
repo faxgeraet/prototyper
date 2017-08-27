@@ -52,12 +52,19 @@ Timer timer;
 
 int main(int argc, const char * argv[]) {
     
+    //  check for input arguments
+    
+    if (argc==1)
+    {
+        std::cout << "ERROR: not enough arguments" << std::endl;
+        return -1;
+    }
+    
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
-
     
     //  get current display resolution of the primary monitor
 
@@ -70,7 +77,6 @@ int main(int argc, const char * argv[]) {
     
     GLFWwindow* window = glfwCreateWindow(DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, "prototyper", NULL, NULL);
     
-
     if(window == NULL)
     {
         std::cout << "GLFW Window creation failed... shutting down" << std::endl;
@@ -81,7 +87,7 @@ int main(int argc, const char * argv[]) {
     //  set some window related GLFW options (resizing, aspect)
     
     //glfwSetWindowAspectRatio(window, DISPLAY_WIDTH, DISPLAY_HEIGHT);
-    glfwSetWindowSizeLimits(window, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, DISPLAY_WIDTH, DISPLAY_HEIGHT);
+    glfwSetWindowSizeLimits(window, DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2, GLFW_DONT_CARE, GLFW_DONT_CARE);
     glfwWindowHint(GLFW_CURSOR_HIDDEN, GLFW_TRUE);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     glfwGetCursorPos(window, &cursor.prevX, &cursor.prevY);
@@ -96,13 +102,12 @@ int main(int argc, const char * argv[]) {
     glfwSetScrollCallback(window, scroll_callback);
     glfwSetCursorPosCallback(window, cursor_pos_callback);
     
-    /*  setup shaders  */
+    /*  load shaders  */
+    
     Shader shader = Shader("/Users/marcusgursch/Programming/Xcode/Projects/prototyper/shaders/vShader.glsl", "/Users/marcusgursch/Programming/Xcode/Projects/prototyper/shaders/fShader.glsl", nullptr);
     
     /*  setup openGL  */
     
-    glEnable(GL_DEPTH_TEST);
-//    glEnable(GL_BLEND);
 //    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     
     /*  initiate timer  */
@@ -111,7 +116,10 @@ int main(int argc, const char * argv[]) {
     
     /*  load model  */
     
-    Model model1 = Model(argv[1]);
+    std::vector <Model> models;
+    
+    for (unsigned int i = 1; i < argc; i++)
+        models.push_back(Model(argv[i]));
     
     timer.update();
     
@@ -137,10 +145,11 @@ int main(int argc, const char * argv[]) {
         camera.updatePos(&keypress, timer.delta);
         
         //  render model
-        shader.use();
         shader.setMat4("view", camera.view);
         shader.setMat4("projection", camera.projection);
-        model1.draw(shader);
+        
+        for (unsigned int i = 0; i < models.size(); i++)
+            models[i].draw(shader);
         
         glfwSwapBuffers(window);
         glfwPollEvents();
@@ -175,8 +184,8 @@ void scroll_callback (GLFWwindow* window, double dx, double dy)
 //    dx*=2.0f;
 //    dy*=2.0f;
 //    camera.setAngle(dx, dy);
-    camera.speed -= (float)dy/200.0f;
-    camera.speed = glm::max(camera.speed, 0.01f);
+    camera.speed /= 1+(0.01*(float)dy);
+    camera.speed = glm::max(camera.speed, 0.003f);
 }
 
 void cursor_pos_callback (GLFWwindow* window,double currX,double currY)

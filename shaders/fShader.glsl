@@ -5,19 +5,22 @@ in vec2 TexCoords;
 in vec3 fragPos;
 in vec3 normal;
 
-//uniform sampler2D texture_diffuse1;
-//uniform sampler2D texture_diffuse2;
+uniform sampler2D texture_diffuse1;
 
 void main()
 {
-//    vec4 color1 = texture(texture_diffuse1, TexCoords);
-//    vec4 color2 = texture(texture_diffuse1, TexCoords);
-//    if( length(vec3(color1.xyz))==0)
-//        color1= vec4(0.5,0.5,0.5,1.0);
-//    if( length(vec3(color2.xyz))==0)
-//        color2= vec4(0.5,0.5,0.5,1.0);
-    float diffuseAmount = abs(dot(normal, normalize(vec3(2.0, 4.0, 1.0))));
+    vec4 color1 = texture(texture_diffuse1, TexCoords);
+
+    //  diffuse light
+    
+    float diffuseAmount = dot(normal, normalize(vec3(2.0, 4.0, 1.0)));
     diffuseAmount= diffuseAmount*0.5+0.5;
-//    float depth = 1-fragPos.z/1000;
-    FragColor = vec4 ( 1.0, 1.0, 1.0, 1.0) * diffuseAmount;
+    
+    
+    //  apply default color if no texture is available
+    
+//    if(color1.a < 0.2) discard;
+    if(length(color1.xyz)==0) color1 = vec4(1.0,1,1,0.5);
+    FragColor = vec4 (color1.xyz * diffuseAmount, color1.w);
+
 }

@@ -70,21 +70,14 @@ void Camera::updatePos(KeyState *keypress, float deltaT)
     view = glm::rotate (view, glm::radians(alpha), glm::vec3(1.0, 0.0, 0.0));
     view = glm::rotate (view, glm::radians(theta), glm::vec3(0.0, 1.0, 0.0));
     
-    //  update position, lock view to y=0;
-    
-//    dv[1]=0;
+    //  update camera position
     
     dv = dv * view ;
-    
-//    dv[1]=0;
     
     position += dv*(deltaT*60);
     
     view = glm::translate (view, glm::vec3(0.0,0.0,-2.0));
     view = glm::translate (view, glm::vec3(position[0],position[1],position[2]));
-    
-    
-    
     
 }
 
@@ -100,8 +93,4 @@ void Camera::setAngle(float dx, float dy)
         theta += 360;
     alpha = glm::clamp(alpha, -lookUpAngle, -lookDownAngle);
 }
-//void Camera::updateView (glm::mat4 view, Shader shader)
-//{
-//    shader.setMat4("view", view);
-//}
 
