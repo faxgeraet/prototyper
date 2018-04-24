@@ -360,6 +360,13 @@
 		D59732B31F476D1800137847 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					.,
+					"../../**",
+					/usr/local/include,
+					/usr/local/Cellar/,
+					"/usr/local/Cellar/glm/0.9.8.5/include/**",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -367,6 +374,13 @@
 		D59732B41F476D1800137847 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					.,
+					"../../**",
+					/usr/local/include,
+					/usr/local/Cellar/,
+					"/usr/local/Cellar/glm/0.9.8.5/include/**",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
