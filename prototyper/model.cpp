@@ -22,11 +22,11 @@ Model::Model (std::string const &path)
 {
     //  abort if wrong input format
     
-    if(path.find("obj")==std::string::npos && path.find("OBJ")==std::string::npos && path.find("Obj")==std::string::npos)
-    {
-        std::cout << "ERROR: wrong file format" << std::endl;
-        return;
-    }
+//    if(path.find("obj")==std::string::npos && path.find("OBJ")==std::string::npos && path.find("Obj")==std::string::npos)
+//    {
+//        std::cout << "ERROR: wrong file format" << std::endl;
+//        return;
+//    }
     
     directory = path.substr(0, path.find_last_of('/')+1);
     

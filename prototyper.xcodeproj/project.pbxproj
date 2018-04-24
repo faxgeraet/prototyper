@@ -43,6 +43,7 @@
 		D59732BF1F476D8800137847 /* camera.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = camera.hpp; sourceTree = "<group>"; };
 		D59732C21F476DB100137847 /* controls.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = controls.cpp; sourceTree = "<group>"; };
 		D59732C31F476DB100137847 /* controls.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = controls.hpp; sourceTree = "<group>"; };
+		D5B38E2D208FD2500082F346 /* asset */ = {isa = PBXFileReference; lastKnownFileType = folder; path = asset; sourceTree = "<group>"; };
 		D5D131181F489E78004752A4 /* vShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = vShader.glsl; path = shaders/vShader.glsl; sourceTree = "<group>"; };
 		D5D131191F489E87004752A4 /* fShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fShader.glsl; path = shaders/fShader.glsl; sourceTree = "<group>"; };
 		D5D305291F4995C700862EAB /* tiny_obj_loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tiny_obj_loader.h; sourceTree = "<group>"; };
@@ -96,8 +97,8 @@
 		D59732A21F476D1800137847 = {
 			isa = PBXGroup;
 			children = (
+				D5B38E2D208FD2500082F346 /* asset */,
 				D531774E1F47BB5C003954B5 /* include */,
-				D59732C61F476E2B00137847 /* assets */,
 				D59732C51F476E1200137847 /* shaders */,
 				D53177451F47B1BC003954B5 /* headers */,
 				D59732AD1F476D1800137847 /* source */,
@@ -135,21 +136,6 @@
 				D5D131191F489E87004752A4 /* fShader.glsl */,
 			);
 			name = shaders;
-			sourceTree = "<group>";
-		};
-		D59732C61F476E2B00137847 /* assets */ = {
-			isa = PBXGroup;
-			children = (
-				D59732C71F476E3400137847 /* models */,
-			);
-			name = assets;
-			sourceTree = "<group>";
-		};
-		D59732C71F476E3400137847 /* models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

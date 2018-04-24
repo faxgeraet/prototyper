@@ -63,7 +63,11 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = ""
+            argument = "/Users/marcusgursch/Downloads/58a22d3ed88511fde16ae42e286ed560/CarVAZ-2107N250118.obj"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "/Users/marcusgursch/Downloads/ba6w0ln4l2io-Low-Poly-Racing-Car-c/Low-Poly-Racing-Car.obj"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

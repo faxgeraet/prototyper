@@ -104,7 +104,7 @@ int main(int argc, const char * argv[]) {
     
     /*  load shaders  */
     
-    Shader shader = Shader("/Users/marcusgursch/Programming/Xcode/Projects/prototyper/shaders/vShader.glsl", "/Users/marcusgursch/Programming/Xcode/Projects/prototyper/shaders/fShader.glsl", nullptr);
+    Shader shader = Shader("/Users/marcusgursch/Coding/Xcode/Projects/prototyper/shaders/vShader.glsl", "/Users/marcusgursch/coding/Xcode/Projects/prototyper/shaders/fShader.glsl", nullptr);
     
     /*  setup openGL  */
     

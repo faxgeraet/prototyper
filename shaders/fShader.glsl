@@ -22,5 +22,4 @@ void main()
 //    if(color1.a < 0.2) discard;
     if(length(color1.xyz)==0) color1 = vec4(1.0,1,1,0.5);
     FragColor = vec4 (color1.xyz * diffuseAmount, color1.w);
-
 }
