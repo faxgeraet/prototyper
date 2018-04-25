@@ -6,7 +6,8 @@
 //  Copyright © 2017 Marcus Gursch. All rights reserved.
 //
 
-#include "camera.hpp"
+#include "proto.hpp"
+
 
 Camera::Camera()
 {
@@ -17,10 +18,9 @@ Camera::Camera()
     lookDownAngle = -100.0f;
     sensitivity = 0.5;
     speed = 0.075;
-    
+
     position = glm::vec4(0.0,0.0,0.0,0.0);
     dv = glm::vec4(0.0,0.0,0.0,0.0);
-    
     projection = glm::perspective(45.0f, 1.6f/1.0f, 0.1f, 100000.0f);
 }
 
@@ -31,15 +31,15 @@ void Camera::updateProjection (int width, int height)
 void Camera::updatePos(KeyState *keypress, float deltaT)
 {
     //  initialize positional differential
-    
+
     dv = glm::vec4 (0.0,0.0,0.0,0.0);
-    
+
     // initialize view matrix
-    
+
     view = glm::mat4();
-    
+
     //  poll keyboard input
-    
+
     if (keypress->S)
     {
         dv[2] -= speed;
@@ -64,21 +64,21 @@ void Camera::updatePos(KeyState *keypress, float deltaT)
     {
         dv[1] -= speed;
     }
-    
+
     //  update view matrix
-    
-    view = glm::rotate (view, glm::radians(alpha), glm::vec3(1.0, 0.0, 0.0));
-    view = glm::rotate (view, glm::radians(theta), glm::vec3(0.0, 1.0, 0.0));
-    
+
+    view = glm::rotate(view, glm::radians(alpha), glm::vec3(1.0, 0.0, 0.0));
+    view = glm::rotate(view, glm::radians(theta), glm::vec3(0.0, 1.0, 0.0));
+
     //  update camera position
-    
+
     dv = dv * view ;
-    
+
     position += dv*(deltaT*60);
-    
-    view = glm::translate (view, glm::vec3(0.0,0.0,-2.0));
-    view = glm::translate (view, glm::vec3(position[0],position[1],position[2]));
-    
+
+    view = glm::translate(view, glm::vec3(0.0,0.0,-2.0));
+    view = glm::translate(view, glm::vec3(position[0],position[1],position[2]));
+
 }
 
 void Camera::setAngle(float dx, float dy)
@@ -92,5 +92,6 @@ void Camera::setAngle(float dx, float dy)
     if (theta <=180)
         theta += 360;
     alpha = glm::clamp(alpha, -lookUpAngle, -lookDownAngle);
+    //std::cout << "alpha: " << alpha << ", theta: " << theta << std::endl;
 }
 

@@ -6,7 +6,8 @@
 //  Copyright © 2017 Marcus Gursch. All rights reserved.
 //
 
-#include "timer.hpp"
+#include "proto.hpp"
+#include <GLFW/glfw3.h>
 
 
 Timer::Timer()
