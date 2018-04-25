@@ -6,7 +6,8 @@
 //  Copyright © 2017 Marcus Gursch. All rights reserved.
 //
 
-#include "physics.hpp"
+#include "proto.hpp"
+
 
 void Physics::accelerate(float deltaT)
 {
@@ -18,7 +19,7 @@ void Physics::translate(float deltaT)
     location += speed * deltaT;
 }
 
-void Physics::update(deltaT)
+void Physics::update(float deltaT)
 {
     accelerate (deltaT);
     force = glm::vec3(); // reset force
